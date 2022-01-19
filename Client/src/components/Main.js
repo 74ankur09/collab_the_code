@@ -21,7 +21,7 @@ const Main = () => {
         for (let i = 0; i < length; i++) {
             text += char_list.charAt(Math.floor(Math.random() * char_list.length));
         }
-        setCode(text)
+        setCode(text)        
     }
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
@@ -37,13 +37,15 @@ const Main = () => {
             }).then(res => res.json())
                 .then((result) => {
                     let arry = result.rooms
-                    //console.log(arry)
+                    //console.log(arry) 
                     setmyRooms(arry)
                     // console.log(myrooms)
                 })
         }
     }, [])
     useEffect(() => {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaa');
+        console.log(code);
         if (code !== '') {
             history.push(`/editor/${code}`);
         }
@@ -69,6 +71,7 @@ const Main = () => {
                                             <h5 className="card-header">Room {index}</h5>
                                             <div class="card-body">
                                                 <h5 className="card-title">
+      
                                                     <Link to={`/editor/${item}`}>{ENDPOINT}/editor/{item}</Link>
                                                 </h5>
                                             </div>

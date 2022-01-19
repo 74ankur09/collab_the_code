@@ -4,7 +4,7 @@ import { Button, FormControl, InputGroup } from 'react-bootstrap'
 const user = JSON.parse(localStorage.getItem("user"))
 
 const Chatbox = ({ socket, toggleChatbox, isChatboxOpen }) => {
-
+ 
     const [loaded, setLoaded] = useState(true)
     const [messages, setMessages] = useState([])
 
@@ -13,8 +13,11 @@ const Chatbox = ({ socket, toggleChatbox, isChatboxOpen }) => {
     const messagesEndRef = useRef(null)
 
     useEffect(() => {
+ 
+        console.log('here inside use effect -------------------------------------')
         socket.on("create-message", data => {
             setLoaded(false)
+
             const temp_messages = messages;
             temp_messages.push({
                 user: data.user,
@@ -37,6 +40,7 @@ const Chatbox = ({ socket, toggleChatbox, isChatboxOpen }) => {
     }
 
     const handleSend = () => {
+        console.log('message---------------------')
         if (message !== "") {
             socket.emit('message', {
                 user: user.name,
@@ -45,8 +49,10 @@ const Chatbox = ({ socket, toggleChatbox, isChatboxOpen }) => {
             setMessage("")
         }
     }
+    
 
-    return (
+        return (
+
         <div>
             <div className="chat_window bg-light" style={{ display: isChatboxOpen ? "block" : "none" }}>
                 <div className="chat_header bg-dark text-center text-white">

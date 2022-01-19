@@ -5,6 +5,7 @@ const User = mongoose.model("User")
 const requireLogin = require('../middleware/requireLogin')
 
 router.put('/addroom',requireLogin,(req,res)=>{
+    console.log(' inside    addroom put ')
     console.log(req.body);
     User.findByIdAndUpdate(req.user._id,{
         $addToSet:{rooms:req.body.room}

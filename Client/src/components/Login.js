@@ -16,13 +16,14 @@ if (process.env.NODE_ENV === "production") {
     ENDPOINT = `https://ie-code-collaborator.herokuapp.com`
 }
 const Login = () => {
+    console.log('login------------------------------------')
     const history = useHistory()
     const [password, setPasword] = useState("")
     const [email, setEmail] = useState("")
     const [showPassword, togglePassword] = useState(false)
 
 
-    const PostData = () => {
+    const PostData = () => {  
 
         fetch(`${ENDPOINT}/login`, {
             method: "post",

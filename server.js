@@ -23,7 +23,7 @@ const io = socketIO(server, {
 });
 let roomname
 
-const dbURI = "mongodb+srv://Abhinav:abhinav@cluster0.fg6uh.mongodb.net/code-collab?retryWrites=true&w=majority";
+const dbURI = "mongodb+srv://ankur:Tz6kKZVGuKejYhjo@cluster0.2qlww.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB is connected'))
     .catch((err) => { console.log(err) });
@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
     console.log(`User connected`, socket.id)
 
     socket.on('join-room', ({ room }) => {
-        console.log(room);
+        console.log('room is' +room);
         roomname = room
         const present = room in rooms
         if (!present) {
@@ -42,8 +42,12 @@ io.on("connection", (socket) => {
                 value: ''
             }
         }
+        console.log()
         socket.join(room)
+        console.log('inside server.js')
+        console.log('------------------------------------------------')
         console.log(rooms)
+        console.log('------------------------------------------------')
         
         language = rooms[roomname].language
         value = rooms[roomname].value
@@ -71,11 +75,10 @@ io.on("connection", (socket) => {
 
         socket.on('disconnect', () => {
             // io.socket.removeAllListeners()
-            console.log('User disconnected', socket.id);
+            console.log('User disconnected----------------------------------', socket.id);
         })
     })
 });
-
 
 if (process.env.NODE_ENV == "production") {
     app.use(express.static('Client/build'))

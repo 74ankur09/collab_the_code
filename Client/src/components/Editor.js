@@ -20,7 +20,7 @@ function Area(props) {
   const url=window.location.href
   const location = useLocation()
   const history = useHistory()
-  console.log(location+`hello`)
+  // console.log(location+`hello`)
   const socket = props.socket
   const theme = "dark";
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -33,21 +33,27 @@ function Area(props) {
 
 
   useEffect(() => {
+    console.log('editor----------------------')
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
+    console.log('editor-----------------' , user)
     if (!user) {
       history.push('/login');
     }
-    console.log(window.location.href);
-    socket.emit('join-room', { room })
+    console.log('editor-----------------------', window.location.href);
 
-    console.log(room);
+    socket.emit('join-room', { room },(t)=>{
+      // console.log('inside emit')
+      // console.log(t);
+    })
+    
+    console.log('editor-------------' ,room);
     socket.on('initial-language', data => {
       setLanguage(data)
     })
     socket.on('initial-value', data => {
       setData(data)
     })
+
     fetch(`${ENDPOINT}/addroom`, {
       method: "put",
       headers: {
